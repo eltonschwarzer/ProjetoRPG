@@ -5,6 +5,8 @@
  */
 package projetorpg;
 
+import modelos.Personagem;
+
 /**
  *
  * @author elton_schwarzer
@@ -17,11 +19,13 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         
-        buttonGroup1.add(rbClasse1);
-        buttonGroup1.add(rbClasse2);
-        
+       rbGrupo.add(rbGuerreiro);
+       rbGrupo.add(rbMago);
+       rbGrupo.add(rbPaladino);
     }
 
+       
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,24 +35,27 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        rbClasse1 = new javax.swing.JRadioButton();
-        rbClasse2 = new javax.swing.JRadioButton();
+        rbGrupo = new javax.swing.ButtonGroup();
+        rbGuerreiro = new javax.swing.JRadioButton();
+        rbMago = new javax.swing.JRadioButton();
+        rbPaladino = new javax.swing.JRadioButton();
+        btAvancar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        jLabel1.setText("jLabel1");
+        rbGuerreiro.setText("GUERREIRO");
 
-        jButton1.setText("jButton1");
+        rbMago.setText("MAGO");
 
-        jButton2.setText("jButton2");
+        rbPaladino.setText("PALADINO");
 
-        rbClasse1.setText("jRadioButton1");
-
-        rbClasse2.setText("jRadioButton2");
+        btAvancar.setText("AVANÇAR");
+        btAvancar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAvancarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,41 +65,44 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rbClasse1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rbClasse2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btAvancar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))))
+                        .addComponent(rbGuerreiro)
+                        .addGap(39, 39, 39)
+                        .addComponent(rbMago)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addComponent(rbPaladino)
+                        .addGap(15, 15, 15))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(jButton2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rbClasse1)
-                            .addComponent(rbClasse2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbGuerreiro)
+                    .addComponent(rbMago)
+                    .addComponent(rbPaladino))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                .addComponent(btAvancar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAvancarActionPerformed
+        //Avançar para a tela confronto
+        //Enviar os dados da Classe escolhida para a tela Confronto
+        Personagem personagemEscolhido = escolherClasse();
+        
+        TelaConfronto tela = new TelaConfronto(personagemEscolhido);
+        tela.setVisible(true); //Mostra a tela de confronto
+        
+        //Colocar a tela atual não visível
+        this.setVisible(false);
+        
+        
+    }//GEN-LAST:event_btAvancarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,7 +130,6 @@ public class Principal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -130,11 +139,45 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton rbClasse1;
-    private javax.swing.JRadioButton rbClasse2;
+    private javax.swing.JButton btAvancar;
+    private javax.swing.ButtonGroup rbGrupo;
+    private javax.swing.JRadioButton rbGuerreiro;
+    private javax.swing.JRadioButton rbMago;
+    private javax.swing.JRadioButton rbPaladino;
     // End of variables declaration//GEN-END:variables
+
+    private Personagem escolherClasse() {
+        
+        try{
+            Personagem personagem = new Personagem();
+            //Preenche os atributos do personagem conforme a classe
+            if(rbGuerreiro.isSelected()){
+                personagem.setNome("");
+                personagem.setClasse("Guerreiro");
+                personagem.setNivel(1);
+                personagem.setVida(100);
+                personagem.setAtaque(60);
+                
+            }else if(rbMago.isSelected()){
+                personagem.setNome("");
+                personagem.setClasse("Mago");
+                personagem.setNivel(1);
+                personagem.setVida(50);
+                personagem.setAtaque(100);
+                
+            }else{
+                personagem.setNome("");
+                personagem.setClasse("Paladino");
+                personagem.setNivel(1);
+                personagem.setVida(50);
+                personagem.setAtaque(100);
+                
+            }
+            //Retorna o objeto preenchido
+            return personagem;
+        }catch(Exception ex){
+            
+        }
+        return null;
+    }
 }
