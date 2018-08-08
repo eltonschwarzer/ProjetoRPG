@@ -5,6 +5,9 @@
  */
 package projetorpg;
 
+import ferramentas.CaixaDeDialogo;
+import java.util.Random;
+import modelos.Oponente;
 import modelos.Personagem;
 
 /**
@@ -12,18 +15,32 @@ import modelos.Personagem;
  * @author elton_schwarzer
  */
 public class TelaConfronto extends javax.swing.JFrame {
-
+    Personagem personagem2;
     /**
      * Creates new form TelaConfronto
      */
     public TelaConfronto(Personagem personagem) {
         initComponents();
-        
+        this.personagem2=personagem;
         //preenche com o nomde da classe escolhida
-        lblClasse.setText(personagem.getClasse());
+        lblClasse.setText(personagem.getNome()+" - "+personagem.getClasse());
+        lbVidaPersonagem.setText(String.valueOf(personagem.getVida()));
+    }
+    Oponente oponente = new Oponente();
+    private void gerarOponente(){
+        try{
+           Random gerador = new Random();
+           oponente.setAtaque(gerador.nextInt(5) + 1);
+           oponente.setVida(gerador.nextInt(5) + 1);
+        
+        }catch(Exception ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("MENSAGEM","TITULO",'e');
+        }
+    }
+    
+    private void mostrarOponente(){
         
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,6 +53,8 @@ public class TelaConfronto extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblClasse = new javax.swing.JLabel();
+        lbVidaPersonagem = new javax.swing.JLabel();
+        btnAtaque = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,32 +64,59 @@ public class TelaConfronto extends javax.swing.JFrame {
 
         lblClasse.setText("...");
 
+        lbVidaPersonagem.setText("...");
+
+        btnAtaque.setText("Ataque");
+        btnAtaque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtaqueActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(114, 114, 114))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblClasse, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                    .addComponent(lbVidaPersonagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(174, Short.MAX_VALUE)
+                .addComponent(btnAtaque)
+                .addGap(159, 159, 159))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(lblClasse))
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbVidaPersonagem))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                .addComponent(btnAtaque)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAtaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaqueActionPerformed
+        // TODO add your handling code here:
+        int ataque = personagem2.getAtaque();
+        int ataque = 0;
+        oponente.setVida();
+    }//GEN-LAST:event_btnAtaqueActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,8 +154,10 @@ public class TelaConfronto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtaque;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lbVidaPersonagem;
     private javax.swing.JLabel lblClasse;
     // End of variables declaration//GEN-END:variables
 }
