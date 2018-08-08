@@ -5,6 +5,7 @@
  */
 package projetorpg;
 
+import ferramentas.CaixaDeDialogo;
 import modelos.Personagem;
 
 /**
@@ -40,6 +41,8 @@ public class Principal extends javax.swing.JFrame {
         rbMago = new javax.swing.JRadioButton();
         rbPaladino = new javax.swing.JRadioButton();
         btAvancar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtNomePersonagem = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -56,6 +59,8 @@ public class Principal extends javax.swing.JFrame {
                 btAvancarActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Nome:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,6 +79,12 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                         .addComponent(rbPaladino)
                         .addGap(15, 15, 15))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNomePersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,7 +94,11 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(rbGuerreiro)
                     .addComponent(rbMago)
                     .addComponent(rbPaladino))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNomePersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
                 .addComponent(btAvancar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -91,7 +106,10 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAvancarActionPerformed
-        //Avançar para a tela confronto
+    if(txtNomePersonagem.getText().trim().length()>3){
+
+
+//Avançar para a tela confronto
         //Enviar os dados da Classe escolhida para a tela Confronto
         Personagem personagemEscolhido = escolherClasse();
         
@@ -100,7 +118,9 @@ public class Principal extends javax.swing.JFrame {
         
         //Colocar a tela atual não visível
         this.setVisible(false);
-        
+    }else{
+        CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO NO NOME","ERRO",'e');
+    }
         
     }//GEN-LAST:event_btAvancarActionPerformed
 
@@ -140,10 +160,12 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAvancar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.ButtonGroup rbGrupo;
     private javax.swing.JRadioButton rbGuerreiro;
     private javax.swing.JRadioButton rbMago;
     private javax.swing.JRadioButton rbPaladino;
+    private javax.swing.JTextField txtNomePersonagem;
     // End of variables declaration//GEN-END:variables
 
     private Personagem escolherClasse() {
@@ -151,6 +173,7 @@ public class Principal extends javax.swing.JFrame {
         try{
             Personagem personagem = new Personagem();
             //Preenche os atributos do personagem conforme a classe
+            personagem.setNome(txtNomePersonagem.getText().trim());
             if(rbGuerreiro.isSelected()){
                 personagem.setNome("");
                 personagem.setClasse("Guerreiro");
