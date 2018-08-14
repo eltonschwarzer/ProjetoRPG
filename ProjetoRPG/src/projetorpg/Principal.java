@@ -119,7 +119,7 @@ public class Principal extends javax.swing.JFrame {
         //Colocar a tela atual não visível
         this.setVisible(false);
     }else{
-        CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO NO NOME","ERRO",'e');
+        CaixaDeDialogo.obterinstancia().exibirMensagem("Informe um nome com pelo menso 4 caracteres: ","ERROOOOOUUUUU",'e');
     }
         
     }//GEN-LAST:event_btAvancarActionPerformed
