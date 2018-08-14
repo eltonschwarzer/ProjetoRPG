@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projetorpg;
 
 import ferramentas.CaixaDeDialogo;
@@ -47,6 +42,7 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
+        rbGuerreiro.setSelected(true);
         rbGuerreiro.setText("GUERREIRO");
 
         rbMago.setText("MAGO");
@@ -106,21 +102,21 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAvancarActionPerformed
-    if(txtNomePersonagem.getText().trim().length()>3){
+    
+        if(txtNomePersonagem.getText().trim().length()>3){
 
+            //Avançar para a tela confronto
+            //Enviar os dados da Classe escolhida para a tela Confronto
+            Personagem personagemEscolhido = escolherClasse();
 
-//Avançar para a tela confronto
-        //Enviar os dados da Classe escolhida para a tela Confronto
-        Personagem personagemEscolhido = escolherClasse();
-        
-        TelaConfronto tela = new TelaConfronto(personagemEscolhido);
-        tela.setVisible(true); //Mostra a tela de confronto
-        
-        //Colocar a tela atual não visível
-        this.setVisible(false);
-    }else{
-        CaixaDeDialogo.obterinstancia().exibirMensagem("Informe um nome com pelo menso 4 caracteres: ","ERROOOOOUUUUU",'e');
-    }
+            TelaConfronto tela = new TelaConfronto(personagemEscolhido);
+            tela.setVisible(true); //Mostra a tela de confronto
+
+            //Colocar a tela atual não visível
+            this.setVisible(false);
+        }else{
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Informe um nome com pelo menso 4 caracteres: ","ERROOOOOUUUUU",'e');
+        }
         
     }//GEN-LAST:event_btAvancarActionPerformed
 
@@ -175,21 +171,18 @@ public class Principal extends javax.swing.JFrame {
             //Preenche os atributos do personagem conforme a classe
             personagem.setNome(txtNomePersonagem.getText().trim());
             if(rbGuerreiro.isSelected()){
-                personagem.setNome("");
                 personagem.setClasse("Guerreiro");
                 personagem.setNivel(1);
                 personagem.setVida(100);
                 personagem.setAtaque(60);
                 
             }else if(rbMago.isSelected()){
-                personagem.setNome("");
                 personagem.setClasse("Mago");
                 personagem.setNivel(1);
                 personagem.setVida(50);
                 personagem.setAtaque(100);
                 
             }else{
-                personagem.setNome("");
                 personagem.setClasse("Paladino");
                 personagem.setNivel(1);
                 personagem.setVida(50);
